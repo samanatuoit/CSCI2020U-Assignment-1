@@ -138,7 +138,7 @@ public class Assign1 extends Application {
         //Create table
         table = new TableView<>();
         //data = FXCollections.observableArrayList(myTestFiles);
-        table.setItems(DataSource.getTestFiles());
+        table.setItems(getTestFiles());
         //table.setEditable(false);
 
 
@@ -197,13 +197,11 @@ public class Assign1 extends Application {
     }
 
     //get the TestFile Objects
-
-    /*
     public ObservableList<TestFile> getTestFiles() {
-        ObservableList<TestFile> file = FXCollections.observableArrayList(myTestFiles);
+        ObservableList<TestFile> file = FXCollections.observableArrayList();
         for (TestFile entry: myTestFiles)
             file.add(new TestFile(entry.getFilename(),entry.getSpamProbability(), entry.getActualClass()));
-        return data;
-    }*/
+        return file;
+    }
 
 }
