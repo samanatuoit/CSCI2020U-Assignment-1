@@ -136,7 +136,7 @@ public class Assign1 extends Application {
 
 
         table = new TableView<>();
-        table.setItems(getTestFiles());
+        table.setItems(getTestFiles(myTestFiles));
 
         //Create table columns
         TableColumn<TestFile,String> fileColumn = null;
@@ -162,7 +162,7 @@ public class Assign1 extends Application {
 
 
         //set the items in table
-        table.setItems(getTestFiles());
+        //table.setItems(getTestFiles());
         //table.setEditable(false);
 
 
@@ -199,8 +199,11 @@ public class Assign1 extends Application {
     }
 
     //get the TestFile Objects
-    public ObservableList<TestFile> getTestFiles() {
+    public ObservableList<TestFile> getTestFiles(ArrayList<TestFile> myTestFiles) {
         ObservableList<TestFile> file = FXCollections.observableArrayList();
+        /*  Iterate through each entry in myTestFiles and add it Observable list
+
+         */
         for (TestFile entry: myTestFiles)
             file.add(new TestFile(entry.getFilename(),entry.getSpamProbability(), entry.getActualClass()));
         return file;
