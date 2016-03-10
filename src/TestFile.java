@@ -12,6 +12,7 @@ public class TestFile {
         this.spamProbability = spamProbability;
         this.actualClass = actualClass;
     }
+
     public String getFilename() { return this.filename; }
     public double getSpamProbability() { return this.spamProbability; }
     public String getSpamProbRounded() {

@@ -1,3 +1,5 @@
+import sun.reflect.generics.tree.Tree;
+
 import java.util.*;
 import java.io.*;
 
@@ -79,10 +81,11 @@ public class calcFrequency {
         }
         return tm;
     }
-    protected TreeMap Tester(TreeMap<String, Double> wordSpamChanceMap) {
+    protected ArrayList<TestFile> Tester(TreeMap<String, Double> wordSpamChanceMap, File hamDirectoryTest, File spamDirectoryTest) {
         TreeMap<String, Double> spamChance = new TreeMap<>();
-        File[] listFiles = mainDirectory.listFiles();
+        File[] listFiles = hamDirectoryTest.listFiles();
         ArrayList<Double> etaList = new ArrayList<>();
+        ArrayList<TestFile> myTestFiles = new ArrayList<>();
         Double eta = 0.0;
 
         for (File fileName : listFiles) {
@@ -91,10 +94,32 @@ public class calcFrequency {
                 BufferedReader in = new BufferedReader(new FileReader(fileName));
                 String line;
 
+                //System.out.println(wordSpamChanceMap.values());
+
                 while ((line= in.readLine()) != null) {
                     String[] tokens = line.split("\\W+");
                     for (String token : tokens) {
-                           etaList.add((Math.log(1-wordSpamChanceMap.get(tokens))-Math.log(wordSpamChanceMap.get(tokens ))));
+                        //if (wordSpamChanceMap.get(token) == null) {
+                            //System.out.println("Null detected");
+                        //}  && wordSpamChanceMap.get(token) != 1 (this was in the if block below) && wordSpamChanceMap.get(token) != 0
+                        if (wordSpamChanceMap.get(token) != null && wordSpamChanceMap.get(token) != 0.0 && wordSpamChanceMap.get(token) != 1.0) {
+                           // System.out.println("wordSpamChanceMap.get(token) = " + wordSpamChanceMap.get(token));
+                            //System.out.println("etaList.add = " + (Math.log(1 - wordSpamChanceMap.get(token)) - Math.log(wordSpamChanceMap.get(token))));
+
+                            etaList.add((Math.log(1-wordSpamChanceMap.get(token)))-(Math.log(wordSpamChanceMap.get(token))));
+
+                        } else if (wordSpamChanceMap.get(token) != null && wordSpamChanceMap.get(token) == 0.0) {
+                            //System.out.println("Token = " + wordSpamChanceMap.get(token) + " etaList.add = " + ((Math.log(1 - 0.00001))-Math.log(0.00001)));
+                            etaList.add((Math.log(1 - 0.00001))-Math.log(0.00001));
+
+                        } else if (wordSpamChanceMap.get(token) != null && wordSpamChanceMap.get(token) == 1.0) {
+                            //System.out.println("Token = " + wordSpamChanceMap.get(token) + " etaList.add = " + ((Math.log(1 - 0.99999)) - Math.log(0.99999)));
+                            etaList.add((Math.log(1 - 0.99999))-Math.log(0.99999));
+                        }
+
+                        //System.out.println(wordSpamChanceMap.get(token));
+
+                           //etaList.add((Math.log(1-wordSpamChanceMap.get(token))-Math.log(wordSpamChanceMap.get(token ))));
 
                     }
 
@@ -108,12 +133,89 @@ public class calcFrequency {
                 for (int i = 0; i < etaList.size(); i++) {
                     eta += etaList.get(i);
                 }
+                //System.out.println("eta = " + eta);
 
                 Double chanceWordIsSpam = 1 / (1 + Math.pow(Math.E, eta));
 
                 String outFile = fileName.getName();
-                spamChance.put(outFile,chanceWordIsSpam);
-                return spamChance;
+                myTestFiles.add(new TestFile(outFile, chanceWordIsSpam, "Ham"));
+                eta = 0.0;
+                etaList.clear();
+
+                //spamChance.put(outFile,chanceWordIsSpam);
+                //return spamChance;
+
+
+
+
+
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        } // ------- Spam test calculation ----------
+
+        File[] listFilesAgain = spamDirectoryTest.listFiles();
+
+        for (File fileName : listFilesAgain) {
+
+            try {
+                BufferedReader in = new BufferedReader(new FileReader(fileName));
+                String line;
+
+                //System.out.println(wordSpamChanceMap.values());
+
+                while ((line= in.readLine()) != null) {
+                    String[] tokens = line.split("\\W+");
+                    for (String token : tokens) {
+                        //if (wordSpamChanceMap.get(token) == null) {
+                        //System.out.println("Null detected");
+                        //}  && wordSpamChanceMap.get(token) != 1 (this was in the if block below) && wordSpamChanceMap.get(token) != 0
+                        if (wordSpamChanceMap.get(token) != null && wordSpamChanceMap.get(token) != 0.0 && wordSpamChanceMap.get(token) != 1.0) {
+                            //System.out.println("wordSpamChanceMap.get(token) = " + wordSpamChanceMap.get(token));
+                            //System.out.println("etaList.add = " + (Math.log(1 - wordSpamChanceMap.get(token)) - Math.log(wordSpamChanceMap.get(token))));
+
+                            etaList.add((Math.log(1-wordSpamChanceMap.get(token)))-(Math.log(wordSpamChanceMap.get(token))));
+
+                        } else if (wordSpamChanceMap.get(token) != null && wordSpamChanceMap.get(token) == 0.0) {
+                            //System.out.println("Token = " + wordSpamChanceMap.get(token) + " etaList.add = " + ((Math.log(1 - 0.00001))-Math.log(0.00001)));
+                            etaList.add((Math.log(1 - 0.00001))-Math.log(0.00001));
+
+                        } else if (wordSpamChanceMap.get(token) != null && wordSpamChanceMap.get(token) == 1.0) {
+                            //System.out.println("Token = " + wordSpamChanceMap.get(token) + " etaList.add = " + ((Math.log(1 - 0.99999)) - Math.log(0.99999)));
+                            etaList.add((Math.log(1 - 0.99999))-Math.log(0.99999));
+                        }
+
+                        //System.out.println(wordSpamChanceMap.get(token));
+
+                        //etaList.add((Math.log(1-wordSpamChanceMap.get(token))-Math.log(wordSpamChanceMap.get(token ))));
+
+                    }
+
+
+
+
+
+
+                    //spamChance.put(spamProbabilityMap.get(tokens), 5.0);
+                }
+                for (int i = 0; i < etaList.size(); i++) {
+                    eta += etaList.get(i);
+                }
+                //System.out.println("eta = " + eta);
+
+                Double chanceWordIsSpam = 1 / (1 + Math.pow(Math.E, eta));
+
+                String outFile = fileName.getName();
+                myTestFiles.add(new TestFile(outFile, chanceWordIsSpam, "Spam"));
+                eta = 0.0;
+                etaList.clear();
+
+                //spamChance.put(outFile,chanceWordIsSpam);
+                //return spamChance;
 
 
 
@@ -130,7 +232,14 @@ public class calcFrequency {
 
 
 
-        return spamChance;
+
+
+
+
+
+
+        //return spamChance;
+        return myTestFiles;
 
     }
     protected TreeMap getChanceWordIsSpam(TreeMap<String, Double> hamProbabilityMap, TreeMap<String, Double> spamProbabilityMap) {

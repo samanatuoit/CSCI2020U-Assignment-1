@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class Assign1 extends Application {
@@ -55,17 +56,6 @@ public class Assign1 extends Application {
         TreeMap<String, Double> chanceFileIsSpam = new TreeMap<>();
 
         File mainDirectory = directoryChooser.showDialog(primaryStage);
-        /* List subdirectories in mainDirectory
-        if it is train, go into traom
-        List subdirectories
-        If ham, to to ham
-
-
-
-        */
-        //ArrayList<File> = mainDirectory
-
-
 
 
         File hamDirectory = mainDirectory;
@@ -96,11 +86,19 @@ public class Assign1 extends Application {
 
         wordSpamChanceMap = calcSpam.getChanceWordIsSpam(hamProbabilityMap, spamProbabilityMap);
 
+
+        /*for (String entry : wordSpamChanceMap.keySet()) {
+            System.out.println(wordSpamChanceMap.get(entry));
+            System.out.println("Calculation : " + (Math.log(1-wordSpamChanceMap.get(entry))-Math.log(wordSpamChanceMap.get(entry))));
+        }*/
+
         // Calculate probability if word is spam
-        mainDirectory = directoryChooser.showDialog(primaryStage);
-        File hamDirectoryTest = mainDirectory;
-        mainDirectory = directoryChooser.showDialog(primaryStage);
-        File spamDirectoryTest = mainDirectory;
+
+        //File hamDirectoryTest = directoryChooser.showDialog(primaryStage);
+        //File spamDirectoryTest = directoryChooser.showDialog(primaryStage);
+        File hamDirectoryTest = new File("C:\\Users\\Saman\\Desktop\\SoftDev\\data\\test\\ham");
+        File spamDirectoryTest = new File("C:\\Users\\Saman\\Desktop\\SoftDev\\data\\test\\spam");
+
 
 
 
@@ -108,7 +106,17 @@ public class Assign1 extends Application {
         calcFrequency calcSpamTest = new calcFrequency(spamDirectoryTest);
 
 
-        chanceFileIsSpam = calcHamTest.Tester(wordSpamChanceMap);
+        ArrayList<TestFile> myTestFiles;
+        //chanceFileIsSpam = calcHamTest.Tester(wordSpamChanceMap);
+        myTestFiles = calcHamTest.Tester(wordSpamChanceMap, hamDirectoryTest, spamDirectoryTest);
+        //System.out.println(myTestFiles);
+        for (TestFile entry : myTestFiles) {
+            System.out.println("Filename: " + entry.getFilename() + " Actual class: " + entry.getActualClass() +
+            " Spam probability: " + entry.getSpamProbRounded());
+        }
+
+        //System.out.println("ArrayList size = :" + myTestFiles.size());
+
 
 
 
@@ -122,9 +130,9 @@ public class Assign1 extends Application {
 
 
         // Output for testing purposes
-        for (String entry : wordSpamChanceMap.keySet()) {
-            System.out.println(wordSpamChanceMap.get(entry));
-        }
+        //for (String entry : wordSpamChanceMap.keySet()) {
+            //System.out.println(wordSpamChanceMap.get(entry));
+        //}
 
 
         /*System.out.println("--- Spam Probability Map --- ");
