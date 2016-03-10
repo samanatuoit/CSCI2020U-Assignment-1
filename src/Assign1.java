@@ -1,4 +1,6 @@
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,12 +14,15 @@ import javax.activation.DataSource;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 
 public class Assign1 extends Application {
 
 
     private TableView<TestFile> table;
+    private ObservableList<TestFile> data;
+    protected ArrayList<TestFile> myTestFiles;
 
     public static void main(String[] args) {
         launch(args);
@@ -35,6 +40,7 @@ public class Assign1 extends Application {
         primaryStage.show();
 
 
+        //System.out.println("ArrayList size = :" + myTestFiles.size());
 
         int numOfHamFiles = 0;
         int numOfSpamFiles = 0;
@@ -117,7 +123,7 @@ public class Assign1 extends Application {
         calcFrequency calcSpamTest = new calcFrequency(spamDirectoryTest);
 
 
-        ArrayList<TestFile> myTestFiles;
+        //ArrayList<TestFile> myTestFiles;
         //chanceFileIsSpam = calcHamTest.Tester(wordSpamChanceMap);
         myTestFiles = calcHamTest.Tester(wordSpamChanceMap, hamDirectoryTest, spamDirectoryTest);
         //System.out.println(myTestFiles);
@@ -126,15 +132,14 @@ public class Assign1 extends Application {
             " Spam probability: " + entry.getSpamProbRounded());
         }
 
-
         //Table Implementation
-
+        //data = getTestFiles();
 
         //Create table
         table = new TableView<>();
-        //table.setItems(TestFile.getAllMarks());
-        table.setEditable(true);
-        //System.out.println("ArrayList size = :" + myTestFiles.size());
+        //data = FXCollections.observableArrayList(myTestFiles);
+        table.setItems(DataSource.getTestFiles());
+        //table.setEditable(false);
 
 
         //Create table columns
@@ -153,10 +158,8 @@ public class Assign1 extends Application {
         spamColumn.setMinWidth(100);
         spamColumn.setCellValueFactory(new PropertyValueFactory<>("spamProbability"));
 
-        
-
-
-
+        //Get the columns
+        table.getColumns().addAll(fileColumn, classColumn, spamColumn);
 
 
 
@@ -192,4 +195,15 @@ public class Assign1 extends Application {
 
 
     }
+
+    //get the TestFile Objects
+
+    /*
+    public ObservableList<TestFile> getTestFiles() {
+        ObservableList<TestFile> file = FXCollections.observableArrayList(myTestFiles);
+        for (TestFile entry: myTestFiles)
+            file.add(new TestFile(entry.getFilename(),entry.getSpamProbability(), entry.getActualClass()));
+        return data;
+    }*/
+
 }
