@@ -21,7 +21,7 @@ public class Assign1 extends Application {
 
 
     private TableView<TestFile> table;
-    private ObservableList<TestFile> data;
+    //private ObservableList<TestFile> data;
     protected ArrayList<TestFile> myTestFiles;
 
     public static void main(String[] args) {
@@ -133,14 +133,10 @@ public class Assign1 extends Application {
         }
 
         //Table Implementation
-        //data = getTestFiles();
 
-        //Create table
+
         table = new TableView<>();
-        //data = FXCollections.observableArrayList(myTestFiles);
         table.setItems(getTestFiles());
-        //table.setEditable(false);
-
 
         //Create table columns
         TableColumn<TestFile,String> fileColumn = null;
@@ -159,9 +155,15 @@ public class Assign1 extends Application {
         spamColumn.setCellValueFactory(new PropertyValueFactory<>("spamProbability"));
 
         //Get the columns
-        table.getColumns().addAll(fileColumn, classColumn, spamColumn);
+        table = new TableView<>();
+        table.getColumns().add(fileColumn);
+        table.getColumns().add(classColumn);
+        table.getColumns().add(spamColumn);
 
 
+        //set the items in table
+        table.setItems(getTestFiles());
+        //table.setEditable(false);
 
 
 
