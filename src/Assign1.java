@@ -10,11 +10,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
-import javax.activation.DataSource;
+
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
+
 import java.util.TreeMap;
 
 public class Assign1 extends Application {
@@ -204,9 +204,10 @@ public class Assign1 extends Application {
         /*  Iterate through each entry in myTestFiles and add it Observable list
 
          */
-        for (TestFile entry: myTestFiles)
-            file.add(new TestFile(entry.getFilename(),entry.getSpamProbability(), entry.getActualClass()));
+        for (int i = 0; i < myTestFiles.size(); i++) {
+            file.add(new TestFile(myTestFiles.get(i).getFilename(), myTestFiles.get(i).getSpamProbability(),
+                    myTestFiles.get(i).getActualClass()));
+        }
         return file;
     }
-
 }
