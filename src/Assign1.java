@@ -2,15 +2,22 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
+import javax.activation.DataSource;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class Assign1 extends Application {
+
+
+    private TableView<TestFile> table;
 
     public static void main(String[] args) {
         launch(args);
@@ -26,6 +33,8 @@ public class Assign1 extends Application {
         primaryStage.setTitle("Spam Master 3000");
         primaryStage.setScene(new Scene(root, 850, 500));
         primaryStage.show();
+
+
 
         int numOfHamFiles = 0;
         int numOfSpamFiles = 0;
@@ -94,10 +103,12 @@ public class Assign1 extends Application {
 
         // Calculate probability if word is spam
 
-        //File hamDirectoryTest = directoryChooser.showDialog(primaryStage);
-        //File spamDirectoryTest = directoryChooser.showDialog(primaryStage);
-        File hamDirectoryTest = new File("C:\\Users\\Saman\\Desktop\\SoftDev\\data\\test\\ham");
-        File spamDirectoryTest = new File("C:\\Users\\Saman\\Desktop\\SoftDev\\data\\test\\spam");
+        File hamDirectoryTest = directoryChooser.showDialog(primaryStage);
+        File spamDirectoryTest = directoryChooser.showDialog(primaryStage);
+
+        //Hard coded directories
+        //File hamDirectoryTest = new File("C:\\Users\\Saman\\Desktop\\SoftDev\\data\\test\\ham");
+        //File spamDirectoryTest = new File("C:\\Users\\Saman\\Desktop\\SoftDev\\data\\test\\spam");
 
 
 
@@ -115,8 +126,34 @@ public class Assign1 extends Application {
             " Spam probability: " + entry.getSpamProbRounded());
         }
 
+
+        //Table Implementation
+
+
+        //Create table
+        table = new TableView<>();
+        //table.setItems(TestFile.getAllMarks());
+        table.setEditable(true);
         //System.out.println("ArrayList size = :" + myTestFiles.size());
 
+
+        //Create table columns
+        TableColumn<TestFile,String> fileColumn = null;
+        fileColumn = new TableColumn<>("File");
+        fileColumn.setMinWidth(100);
+        fileColumn.setCellValueFactory(new PropertyValueFactory<>("filename"));
+
+        TableColumn<TestFile,String> classColumn = null;
+        classColumn = new TableColumn<>("Actual Class");
+        classColumn.setMinWidth(100);
+        classColumn.setCellValueFactory(new PropertyValueFactory<>("actualClass"));
+
+        TableColumn<TestFile,Double> spamColumn = null;
+        spamColumn = new TableColumn<>("Spam Probability");
+        spamColumn.setMinWidth(100);
+        spamColumn.setCellValueFactory(new PropertyValueFactory<>("spamProbability"));
+
+        
 
 
 
