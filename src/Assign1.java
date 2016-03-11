@@ -1,7 +1,13 @@
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
@@ -24,8 +30,8 @@ public class Assign1 extends Application {
         //File mainDirectory = directoryChooser.showDialog(primaryStage);
         //System.out.println(mainDirectory);
         primaryStage.setTitle("Spam Master 3000");
-        primaryStage.setScene(new Scene(root, 850, 500));
-        primaryStage.show();
+        //primaryStage.setScene(new Scene(root, 850, 500));
+        //primaryStage.show();
 
         int numOfHamFiles = 0;
         int numOfSpamFiles = 0;
@@ -109,6 +115,8 @@ public class Assign1 extends Application {
         ArrayList<TestFile> myTestFiles;
         //chanceFileIsSpam = calcHamTest.Tester(wordSpamChanceMap);
         myTestFiles = calcHamTest.Tester(wordSpamChanceMap, hamDirectoryTest, spamDirectoryTest);
+
+
         //System.out.println(myTestFiles);
         for (TestFile entry : myTestFiles) {
             System.out.println("Filename: " + entry.getFilename() + " Actual class: " + entry.getActualClass() +
@@ -117,10 +125,35 @@ public class Assign1 extends Application {
 
         //System.out.println("ArrayList size = :" + myTestFiles.size());
 
+        TableView<TestFile> table = new TableView<>();
+        ObservableList data = FXCollections.observableList(myTestFiles);
+        table.setItems(data);
+
+        //Create table columns
+        TableColumn<TestFile,String> fileColumn = new TableColumn<>("File");
+        fileColumn.setMinWidth(200);
+        fileColumn.setCellValueFactory(new PropertyValueFactory("filename"));
+
+        TableColumn<TestFile,String> classColumn = new TableColumn<>("Actual Class");
+        classColumn.setMinWidth(100);
+        classColumn.setCellValueFactory(new PropertyValueFactory("actualClass"));
+
+        TableColumn<TestFile,Double> spamColumn = new TableColumn<>("Spam Probability");
+        spamColumn.setMinWidth(200);
+        spamColumn.setCellValueFactory(new PropertyValueFactory("spamProbability"));
 
 
+        table.getColumns().setAll(fileColumn, classColumn, spamColumn);
+        table.setPrefWidth(500);
+        table.setPrefHeight(400);
 
 
+        VBox vbox = new VBox(20);
+
+        vbox.getChildren().addAll(table);
+
+        primaryStage.setScene(new Scene(vbox, 850, 500));
+        primaryStage.show();
 
 
 

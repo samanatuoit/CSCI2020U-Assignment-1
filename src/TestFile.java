@@ -5,6 +5,7 @@ public class TestFile {
     private String filename;
     private double spamProbability;
     private String actualClass;
+
     public TestFile(String filename,
                     double spamProbability,
                     String actualClass) {
