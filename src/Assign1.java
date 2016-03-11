@@ -10,9 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
-
 import java.io.File;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -36,8 +34,7 @@ public class Assign1 extends Application {
         int numOfHamFiles = 0;
         int numOfSpamFiles = 0;
 
-        // Nice formatting for percentage values
-        DecimalFormat df = new DecimalFormat("#.000000");
+
 
 
         // ham frequency map - Words (key) and how many ham messages (value) they appear in
@@ -100,16 +97,16 @@ public class Assign1 extends Application {
 
         // Calculate probability if word is spam
 
-        //File hamDirectoryTest = directoryChooser.showDialog(primaryStage);
-        //File spamDirectoryTest = directoryChooser.showDialog(primaryStage);
-        File hamDirectoryTest = new File("C:\\Users\\Saman\\Desktop\\SoftDev\\data\\test\\ham");
-        File spamDirectoryTest = new File("C:\\Users\\Saman\\Desktop\\SoftDev\\data\\test\\spam");
+        File hamDirectoryTest = directoryChooser.showDialog(primaryStage);
+        File spamDirectoryTest = directoryChooser.showDialog(primaryStage);
+        //File hamDirectoryTest = new File("C:\\Users\\Saman\\Desktop\\SoftDev\\data\\test\\ham");
+        //File spamDirectoryTest = new File("C:\\Users\\Saman\\Desktop\\SoftDev\\data\\test\\spam");
 
 
 
 
         calcFrequency calcHamTest = new calcFrequency(hamDirectoryTest);
-        calcFrequency calcSpamTest = new calcFrequency(spamDirectoryTest);
+        //calcFrequency calcSpamTest = new calcFrequency(spamDirectoryTest);
 
 
         ArrayList<TestFile> myTestFiles;
@@ -118,10 +115,10 @@ public class Assign1 extends Application {
 
 
         //System.out.println(myTestFiles);
-        for (TestFile entry : myTestFiles) {
+        /*for (TestFile entry : myTestFiles) {
             System.out.println("Filename: " + entry.getFilename() + " Actual class: " + entry.getActualClass() +
             " Spam probability: " + entry.getSpamProbRounded());
-        }
+        }*/
 
         //System.out.println("ArrayList size = :" + myTestFiles.size());
 
@@ -176,9 +173,9 @@ public class Assign1 extends Application {
 
         //System.out.println(trainHamFreq.values());
         //System.out.println(trainHamFreq.descendingMap());
-        System.out.println("------");
+        /*System.out.println("------");
         System.out.println("numOfHamFiles = " + numOfHamFiles);
-        System.out.println("numOfSpamFiles = " + numOfSpamFiles);
+        System.out.println("numOfSpamFiles = " + numOfSpamFiles);*/
 
 
         //System.out.println(trainHamFreq.keySet());
