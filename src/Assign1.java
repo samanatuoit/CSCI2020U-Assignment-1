@@ -1,3 +1,20 @@
+/*
+
+README
+
+Program will ask 4 directory chooser popups in a row:
+
+Popup #1 = Ham training folder selection
+
+Popup #2 = Spam training folder selection
+
+Popup #3 = Ham testing folder selection
+
+Popup #4 = Spam testing folder selection
+
+ */
+
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
