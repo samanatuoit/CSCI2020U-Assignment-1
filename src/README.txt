@@ -34,6 +34,9 @@ Go to menu settings: File > New > Project from existing sources
 Compile/Run the Project
 ------------------------------------------------------------------------------------------------------------------------
     1) Specify the the main class.  Go to the file menu.  Run > Edit Configurations.
+
+        Add a new configuration by click on the green plus on the left hand side:  + > Application
+        --> Name your configuration.  
         Under the main class field:
          -->make sure Assign1 is the main class.
          -->Use classpath module is the project folder directory
