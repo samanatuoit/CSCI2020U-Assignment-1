@@ -18,14 +18,7 @@ public class calcFrequency {
     public calcFrequency(File mainDirectory) {
         this.mainDirectory = mainDirectory;
     }
-    private void getFileNames(File mainDirectory) {
-        // Probably won't need this method
-        // Puts list of all filenames into ArrayList fNames
-        File[] listFiles = mainDirectory.listFiles();
-        /*for (File fileEntry : listFiles) {
-            fNames.add(fileEntry.getName());
-        }*/
-    }
+
     protected TreeMap Trainer() {
         /*
 
@@ -116,19 +109,9 @@ public class calcFrequency {
                             //System.out.println("Token = " + wordSpamChanceMap.get(token) + " etaList.add = " + ((Math.log(1 - 0.99999)) - Math.log(0.99999)));
                             etaList.add((Math.log(1 - 0.99999))-Math.log(0.99999));
                         }
-
-                        //System.out.println(wordSpamChanceMap.get(token));
-
-                           //etaList.add((Math.log(1-wordSpamChanceMap.get(token))-Math.log(wordSpamChanceMap.get(token ))));
-
                     }
 
 
-
-
-
-
-                    //spamChance.put(spamProbabilityMap.get(tokens), 5.0);
                 }
                 for (int i = 0; i < etaList.size(); i++) {
                     eta += etaList.get(i);
@@ -142,19 +125,9 @@ public class calcFrequency {
                 eta = 0.0;
                 etaList.clear();
 
-                //spamChance.put(outFile,chanceWordIsSpam);
-                //return spamChance;
-
-
-
-
-
-
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
 
         } // ------- Spam test calculation ----------
 
@@ -195,11 +168,6 @@ public class calcFrequency {
 
                     }
 
-
-
-
-
-
                     //spamChance.put(spamProbabilityMap.get(tokens), 5.0);
                 }
                 for (int i = 0; i < etaList.size(); i++) {
@@ -218,26 +186,11 @@ public class calcFrequency {
                 //return spamChance;
 
 
-
-
-
-
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-
         }
-
-
-
-
-
-
-
-
-
         //return spamChance;
         return myTestFiles;
 
@@ -270,9 +223,4 @@ public class calcFrequency {
         return wordSpamChanceMap;
 
     }
-
-
-
-
-
 }

@@ -1,29 +1,16 @@
-/*
-
-README
-
-Program will ask 4 directory chooser popups in a row:
-
-Popup #1 = Ham training folder selection
-
-Popup #2 = Spam training folder selection
-
-Popup #3 = Ham testing folder selection
-
-Popup #4 = Spam testing folder selection
-
- */
-
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -156,10 +143,23 @@ public class Assign1 extends Application {
         spamColumn.setMinWidth(200);
         spamColumn.setCellValueFactory(new PropertyValueFactory("spamProbability"));
 
-
+        //Get the table columns
         table.getColumns().setAll(fileColumn, classColumn, spamColumn);
         table.setPrefWidth(500);
         table.setPrefHeight(400);
+
+        /* create the stats form, bottom of user interface */
+
+        GridPane statsArea = new GridPane();
+        statsArea.setPadding(new Insets(10, 10, 10, 10));
+        statsArea.setVgap(10);
+        statsArea.setHgap(10);
+
+        Label accuracyLabel = new Label("Accuracy:");
+        statsArea.add(accuracyLabel, 0, 0);
+        TextField accuracyField = new TextField();
+        statsArea.add(accuracyField, 1, 0);
+
 
 
         VBox vbox = new VBox(20);
